@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "metadodia",
+    "slug": "metadodia",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
