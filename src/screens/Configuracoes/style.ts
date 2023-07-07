@@ -28,14 +28,12 @@ export const styles = StyleSheet.create({
     },
 
     buttonConfiguracoes: {
-        // width: 60,
-        // height: 60,
         borderRadius: 7,
         backgroundColor: theme.COLORS.primary,
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'row',
         padding: 10,
-        // marginTop: 10,
     },
 
     buttonHorario: {
@@ -54,6 +52,7 @@ export const styles = StyleSheet.create({
     containerText: {
         color: theme.COLORS.GRAY_100,
         alignItems: 'center',
+        fontSize: theme.FONT_SIZE.SM
     },
 
     container: {

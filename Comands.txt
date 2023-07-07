@@ -85,3 +85,24 @@ yarn add @react-native-community/datetimepicker
 
 // Install Formatar datas com date-fns
 npm i date-fns
+
+
+// notifee
+yarn add @notifee/react-native
+
+npx expo install expo-build-properties
+
+// add essas linhas no app.json
+ "plugins": [
+      "@notifee/react-native",
+      ["expo-build-properties", {
+        "android":{
+          "compileSdkVersion": 33,
+          "targetSdkVersion": 33,
+          "buildToolsVersion": "33.0.0"
+        }
+      }]
+    ]
+
+// nao rodei
+npx expo prebuild --clean

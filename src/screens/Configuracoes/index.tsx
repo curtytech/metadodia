@@ -31,34 +31,34 @@ export function Configuracoes() {
 
     const [date, setDate] = useState(new Date(1598051730000));
     const [time, setTime] = useState('');
-    const [notificationTime, setNotificationTime] = useState('');
     const [show, setShow] = useState(false);
-    let dataSelecionada = '';
-  
-    function onChangeTime(event: any, selectedDate: string) {
-        // console.log(selectedDate);
-        setShow(false)
-        dataSelecionada = selectedDate;
-        updateNotification(dataSelecionada)
-        console.log(dataSelecionada);
 
+    function onChangeTime(event: any, selectedDate: string) {
+        const currentTime = selectedDate || date
+        let tempTime = new Date(currentTime)
+        let hour
+        let minute
+        if (tempTime.getHours() < 10) { hour = String('0' + tempTime.getHours()) } else { hour = tempTime.getHours() }
+        if (tempTime.getMinutes() < 10) { minute = String('0' + tempTime.getMinutes()) } else { minute = tempTime.getMinutes() }
+        // console.log(hour);
+        let fTime = hour + ":" + minute
+        setTime(fTime)
+
+        updateNotification(fTime)
+
+        setShow(false)
     }
-    // console.log(selectedDate);
+
     const showTimepicker = () => {
         setShow(true)
     };
-    // console.log(dataSelecionada);
 
-    async function updateNotification(dataSelecionada: string) {
-        setTime(format(dataSelecionada, 'HH:mm'))
-        // console.log(time);
-        // console.log(dataSelecionada);
-
+    async function updateNotification(fTime: string) {
         const notificationsCollection = database.get<NotificationsModel>('notifications');
         const consultaNotificationCriada = await notificationsCollection.query(Q.where('idnotification', 1));
         await database.write(async () => {
             const updatedNotification = await consultaNotificationCriada[0].update(data => {
-                data.time = time
+                data.time = fTime
             });
         });
 
@@ -82,40 +82,38 @@ export function Configuracoes() {
                 })
             })
         }
-        dataSelecionada = consultaNotificationCriada[0].time
         setTime(consultaNotificationCriada[0].time)
-        // console.log(consultaNotificationCriada);
-        // console.log(dataSelecionada);
+        // console.log('consultaNotificationCriada[0].time')
+        // console.log(consultaNotificationCriada[0].time)
+        // console.log('consultaNotificationCriada[0].time')
+
     }
-    
+
     useEffect(() => {
         fetchNotifications();
     }, [])
-
-    // useEffect(() => {
-    //     onChangeTime        
-    //     console.log('efect');
-    // }, [show])
+    
     return (
         <View style={{ backgroundColor: theme.COLORS.GRAY_500, height: 10000 }}>
             <Logocontainer />
             {/* <View style={{ top: -50 }}> */}
             <View >
                 <View style={{ margin: 20 }}>
-                    <TouchableOpacity style={styles.buttonConfiguracoes}
+                    <TouchableOpacity
+                        style={styles.buttonConfiguracoes}
                         onPress={() => navigation.navigate('Home')}
                     >
                         <FontAwesome5 name="arrow-left" size={18} color={theme.COLORS.GRAY_100} />
-                        <Text style={{ color: theme.COLORS.GRAY_100 }}>Voltar</Text>
+                        <Text style={{ color: theme.COLORS.GRAY_100, marginLeft: 5 }}>Voltar</Text>
                     </TouchableOpacity>
                 </View>
 
 
                 <View style={styles.containerInformacoes}>
-                    <Text style={styles.containerText}> O Horário do lembrete está definido para: {time} h</Text>
-                    {/* <Text style={styles.containerText}> O Horário do lembrete está definido para: {format(date, 'HH:mm')} h</Text> */}
 
-                    {/* <Button style={styles.buttonConfiguracoes} onPress={showTimepicker} title="Ajustar Horário do Lembrete" /> */}
+                    <View style={{ justifyContent: 'center', flexDirection: 'row' }}>
+                        <Text style={styles.containerText}> O Horário do lembrete está definido para: {time}h</Text>
+                    </View>
 
                     <TouchableOpacity
                         style={styles.buttonHorario}
@@ -128,19 +126,18 @@ export function Configuracoes() {
 
                 {show && (
                     <DateTimePicker
-                        //     style={{ 
-                        //     backgroundColor: 'red',
-                        //     borderColor: 'white', 
-                        //     width: 50,
-                        //     padding: 60,
-                        //     textColor: 'red'
-                        // }}
+                        style={{
+                            backgroundColor: 'red',
+                            borderColor: 'white',
+                            width: 50,
+                            padding: 60,
+                        }}
                         testID="dateTimePicker"
                         value={date}
                         mode='time'
                         is24Hour={true}
                         display="default"
-                        onChange={onChangeTime}
+                        onChange={onChangeTime}                        
 
                     />
                 )}
