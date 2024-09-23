@@ -1,65 +1,68 @@
-// Limpar cache yarn
-yarn cache clean
+//testar
+expo build:android
+//build expo apk
+eas build -p android --profile preview
 
-// Abrir com Metro
-npx react-native start
-npx react-native run-android
-
-
-// Gerar APK
-na pasta android 
-gradlew assembleRelease
+// build production
+eas build -p android --profile production --message "First Production"
 
 
-// install watermelon db
-yarn add @nozbe/watermelondb
-yarn add --dev @babel/plugin-proposal-decorators
-
-// stack navigation
-npm install @react-navigation/native
-npm install react-native-screens react-native-safe-area-context
-npm install @react-navigation/native-stack
-
-
-
-
-
-// babel.config.js deve ficar assim
-module.exports = function (api) {
-  api.cache(true);
-  return {
-    presets: ['babel-preset-expo', 'module:metro-react-native-babel-preset'],
-    plugins: [
-      ["@babel/plugin-proposal-decorators", { "legacy": true }],
+"plugins": [
       [
-        'module-resolver',
+        "expo-notifications",
         {
-          root: ['./src'],
-          alias: {
-            '@dtos': './src/dtos',
-            '@assets': './src/assets',
-            '@components': './src/components',
-            '@screens': './src/screens',
-            '@storage': './src/storage',
-            '@utils': './src/utils',
-            '@services': './src/services',
-            '@hooks': './src/hooks',
-            '@contexts': './src/contexts',
-            '@routes': './src/routes',
-            '@databases': './src/databases'
-          }
-        },
-      ],
+          "icon": "./assets/notification-icon.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./assets/notification-pianosound.mp3"
+          ]
+        }
+      ]
     ],
-  };
+
+//TailWind React Native
+yarn add react-native-wind
+
+import React from "react";
+import { View } from "react-native";
+import { s } from "react-native-wind";
+
+export default function App() {
+  return (
+  <View style={s`p-5 w-full h-full`}> </View>
+  )
 };
 
-// tem que trocar a versao do kotlin no android/build.gradle
-kotlinVersion = "1.5.20"
+// Notifications Expoo
+https://www.lahoregraphix.com/how-to-send-push-notification-in-react-native-expo-2023/
+npx expo install expo-notifications expo-device
+
+// vector icons
+npm i react-native-vector-icons
+
+// Time picker
+npm install react-native-simple-time-picker
 
 
+asyncstorage
+npx expo install @react-native-async-storage/async-storage
 
 
+// Navigation
+npm install @react-navigation/native
+
+npx expo install react-native-screens react-native-safe-area-context
+
+// Stack Navigation
+npm install @react-navigation/native-stack
+
+// i react native svg
+npx expo install react-native-svg
+
+//i svg transformer
+yarn add --dev react-native-svg-transformer
+
+//add essas linhas no metro.config.js
 const { getDefaultConfig } = require("expo/metro-config");
 
 module.exports = (() => {
@@ -80,29 +83,15 @@ module.exports = (() => {
   return config;
 })();
 
-// i Datetimepicker
-yarn add @react-native-community/datetimepicker
+// criar um arquivo svg.d.ts
+declare module "*.svg"{
+    import React from 'react';
+    import { SvgProps } from 'react-native-svg';
+    const content: React.FC<SvgProps>;
+    export default content;
+}
 
-// Install Formatar datas com date-fns
-npm i date-fns
+// i hook form 
+npm install react-hook-form
 
-
-// notifee
-yarn add @notifee/react-native
-
-npx expo install expo-build-properties
-
-// add essas linhas no app.json
- "plugins": [
-      "@notifee/react-native",
-      ["expo-build-properties", {
-        "android":{
-          "compileSdkVersion": 33,
-          "targetSdkVersion": 33,
-          "buildToolsVersion": "33.0.0"
-        }
-      }]
-    ]
-
-// nao rodei
-npx expo prebuild --clean
+npm install @hookform/resolvers yup

@@ -1,20 +1,37 @@
 {
   "expo": {
-    "name": "metadodia",
+    "name": "Meta do Dia",
     "slug": "metadodia",
-    "version": "1.0.0",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#fff"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
-    "plugins": [
-      "@notifee/react-native",
-      ["expo-build-properties", {
-        "android":{
-          "compileSdkVersion": 31,
-          "targetSdkVersion": 31,
-          "buildToolsVersion": "31.0.0"
-        }
-      }]
-    ]
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#fff"
+      },
+      "package": "com.phelipecurty.metadodia"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "59eac2da-43cd-4c2a-acec-b8bef29ab629"
+      }
+    }
   }
 }

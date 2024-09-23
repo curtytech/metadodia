@@ -1,18 +1,13 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { AppRoutes } from "./app.routes";
+// import { LogoSVG } from '../assets/Metadodia.svg';
 
-import { Home } from '@screens/Home';
-import { Configuracoes } from '@screens/Configuracoes';
-
-
-
-export default function Routes() {
-    
-    const Stack = createNativeStackNavigator();
-
+export function Routes() {
     return (
-        <Stack.Navigator initialRouteName='Home'>
-            <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
-            <Stack.Screen options={{ headerShown: false }} name="Configuracoes" component={Configuracoes} />
-        </Stack.Navigator>
-    );
+        <NavigationContainer>
+            <AppRoutes />
+            {/* <LogoSVG width={200} height={200} /> */}
+
+        </NavigationContainer>
+    )
 }
